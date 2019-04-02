@@ -10,10 +10,6 @@ return [
         ],
 
         'content_path' => __DIR__ .'/../contents',
-        
-        'sql_route' => 'mysql:host=localhost;dbname=upuuntes_database',
-        'sql_username' => 'localhost@root',
-        'sql_password' => 'root',
 
         // Monolog settings
         'logger' => [

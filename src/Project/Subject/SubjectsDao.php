@@ -20,17 +20,31 @@ class SubjectsDao
 		$this->project_dao = $project_dao;
 	}
 
+	/**
+	 * Acceso a la base de datos para obtener las asignaturas de una carrera
+	 * @param $id_career de la carrera a obtener las asignaturas
+	 * @return las asignaturas de una carrera
+	 */
 	public function get_career_subjects($id_career)
 	{
-		$sql = "SELECT * FROM SUBJECT WHERE id_carrer=?";
+		$sql = "SELECT * FROM SUBJECT WHERE id_career=?";
 		return $this->project_dao->fetch_all($sql, array($id_career));
 	}
 
+	/**
+	 * Acceso a la base de datos para introducir una asignatura en el sistema
+	 * @param Subject $subject a introducir en la base de datos
+	 * @return la asignatura introducida
+	 */
 	public function create_subject(Subject $subject)
 	{
 		$sql = "INSERT INTO SUBJECT VALUES (?, ?, ?, ?)";
 		return $this->project_dao->insert($sql, $subject->as_array());
 	}
+
+	/**
+	 * @return todas las asignaturas del sistema
+	 */
 	public function get_all_subjects()
 	{
 		$sql = "SELECT * FROM SUBJECT";

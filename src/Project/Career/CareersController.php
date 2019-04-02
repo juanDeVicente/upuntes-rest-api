@@ -41,4 +41,8 @@ class CareersController
 
 		return $response->withJson($career, 200);
 	}
+	public function get_career(Request $request, Response $response, array $args)
+	{
+		return $response->withJson($this->dao->get_career($args['id_career']), 200);
+	}
 }

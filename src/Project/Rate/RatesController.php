@@ -22,11 +22,25 @@ class RatesController
 		$this->dao = new RatesDao($container['db']);
 	}
 
+	/**
+	 * Método GET que permite obtener todas las calificaciones que tiene un contenido
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response
+	 */
 	public function get_rates_from_content(Request $request, Response $response, array $args)
 	{
 		return $response->withJson($this->dao->get_rates_from_content($args['id_content']), 200);
 	}
 
+	/**
+	 * Metodo POST que perimte insertar un contenido
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response
+	 */
 	public function insert_rate(Request $request, Response $response, array $args)
 	{
 		$post_params = $request->getParsedBody();

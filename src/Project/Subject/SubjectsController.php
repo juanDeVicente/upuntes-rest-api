@@ -21,16 +21,44 @@ class SubjectsController
 		$this->dao = new SubjectsDao($container['db']);
 	}
 
+	/**
+	 * Método GET que devuelve las asignaturas de una carrera ordenadas por año académico
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response
+	 */
 	public function get_career_subjects(Request $request, Response $response, array $args)
 	{
-		return $response->withJson($this->dao->get_career_subjects($args['id_career']), 200);
+		$subjects = $this->dao->get_career_subjects($args['id_career']);
+
+		$subjects_group_by_year = array();
+
+		foreach ($subjects as $subject)
+			$subjects_group_by_year[$subject->year][] = $subject;
+
+		return $response->withJson($subjects_group_by_year, 200);
 	}
 
+	/**
+	 * Método GET que devuelve todas las asignaturas en general
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response
+	 */
 	public function get_all_subjects(Request $request, Response $response, array $args)
 	{
 		return $response->withJson($this->dao->get_all_subjects(), 200);
 	}
 
+	/**
+	 * Método POST que pemite iontroducir una asignatura en el sistema
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response
+	 */
 	public function create_subject(Request $request, Response $response, array $args)
 	{
 		$post_args = $request->getParsedBody();

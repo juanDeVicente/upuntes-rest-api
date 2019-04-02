@@ -11,6 +11,10 @@ namespace Project\Career;
 
 use Project\Utils\Model;
 
+/**
+ * Class Career que modela las carreras en el sistema
+ * @package Project\Career
+ */
 class Career implements Model
 {
 	private $id_career;

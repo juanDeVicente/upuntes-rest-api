@@ -11,6 +11,10 @@ namespace Project\Content;
 
 use Project\Utils\Model;
 
+/**
+ * Class Content que modela el contenido (apuntes) del sistema
+ * @package Project\Content
+ */
 class Content implements Model
 {
 	private $id;

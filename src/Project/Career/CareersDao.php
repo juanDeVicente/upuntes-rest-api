@@ -32,4 +32,9 @@ class CareersDao
 		return $this->project_dao->insert($sql, $career->as_array());
 
 	}
+	public function get_career($id_career)
+	{
+		$sql = "SELECT * FROM career WHERE id_career=?";
+		return $this->project_dao->fetch($sql, array($id_career));
+	}
 }

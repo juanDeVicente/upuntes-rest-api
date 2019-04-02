@@ -22,16 +22,37 @@ class ReportsController
 		$this->dao = new ReportsDao($container['db']);
 	}
 
+	/**
+	 * Metodo GET para obtener todos los reportes del sistema
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response con todos los reportes en formato JSON
+	 */
 	public function get_all_reports(Request $request, Response $response, array $args)
 	{
 		return $response->withJson($this->dao->get_all_reports(), 200);
 	}
 
+	/**
+	 * Método GET para obtener todos los reportes de una asignatura
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response con todos los reportes de una asignatura en formato JSON
+	 */
 	public function get_reports_from_subject(Request $request, Response $response, array $args)
 	{
 		return $response->withJson($this->dao->get_reports_from_subject($args['id_subject']));
 	}
 
+	/**
+	 * Metodo POST que perimte introducir un reporte en el sistema
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response con el utlimo id de reporte introducido en formato JSON
+	 */
 	public function insert_report(Request $request, Response $response, array $args)
 	{
 		$post_data = $request->getParsedBody();
