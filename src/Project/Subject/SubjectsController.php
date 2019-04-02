@@ -51,7 +51,7 @@ class SubjectsController
 	}
 
 	/**
-	 * Método POST que pemite iontroducir una asignatura en el sistema
+	 * Método POST que pemite introducir una asignatura en el sistema
 	 * @param Request $request
 	 * @param Response $response
 	 * @param array $args
