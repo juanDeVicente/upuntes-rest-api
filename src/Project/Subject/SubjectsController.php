@@ -30,11 +30,9 @@ class SubjectsController
 	 */
 	public function get_career_subjects(Request $request, Response $response, array $args)
 	{
-		$subjects = $this->dao->get_career_subjects($args['id_career']);
-
 		$subjects_group_by_year = array();
 
-		foreach ($subjects as $subject)
+		foreach ($this->dao->get_career_subjects($args['id_career']) as $subject)
 			$subjects_group_by_year[$subject->year][] = $subject;
 
 		return $response->withJson($subjects_group_by_year, 200);
