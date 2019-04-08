@@ -64,4 +64,9 @@ class SubjectsController
 
 		return $response->withJson($this->dao->create_subject($subject), 200);
 	}
+
+	public function get_subject(Request $request, Response $response, array $args)
+	{
+		return $response->withJson($this->dao->get_subject($args['id_subject']), 200);
+	}
 }

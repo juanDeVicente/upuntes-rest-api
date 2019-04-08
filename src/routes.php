@@ -19,6 +19,7 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 */
 //Contents
 $app->get('/content', ContentsController::class . ':download_content');
+$app->get('/contents/{id_subject}', ContentsController::class . ':get_all_contents_from_subject');
 $app->post('/content', ContentsController::class . ':upload_content');
 //Careers
 $app->get('/careers', CareersController::class . ':get_all_careers');
@@ -33,7 +34,8 @@ $app->get('/report/{id_subject}', ReportsController::class . ':get_reports_from_
 $app->post('/report', ReportsController::class . ':insert_report');
 //Subject
 $app->get('/subjects', SubjectsController::class . ':get_all_subjects');
-$app->get('/subject/{id_career}', SubjectsController::class . ':get_career_subjects');
+$app->get('/subjects/{id_career}', SubjectsController::class . ':get_career_subjects');
+$app->get('/subject/{id_subject}', SubjectsController::class . ':get_subject');
 $app->post('/subject', SubjectsController::class . ':create_subject');
 //Users
 $app->post('/user', UsersController::class . ':login_user');

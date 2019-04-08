@@ -32,4 +32,9 @@ class ContentsController
 	{
 		$get_params = $request->getQueryParams();
 	}
+
+	public function get_all_contents_from_subject(Request $request, Response $response, array $args)
+	{
+		return $response->withJson($this->dao->get_all_contents_from_subject($args['id_subject']), 200);
+	}
 }

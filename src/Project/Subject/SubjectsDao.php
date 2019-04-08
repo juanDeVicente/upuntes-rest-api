@@ -50,4 +50,10 @@ class SubjectsDao
 		$sql = "SELECT * FROM SUBJECT";
 		return $this->project_dao->fetch_all($sql);
 	}
+
+	public function get_subject($id_subject)
+	{
+		$sql = "SELECT * FROM subject WHERE id_subject=?";
+		return $this->project_dao->fetch($sql, array($id_subject));
+	}
 }
