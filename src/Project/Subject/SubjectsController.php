@@ -69,4 +69,9 @@ class SubjectsController
 	{
 		return $response->withJson($this->dao->get_subject($args['id_subject']), 200);
 	}
+	public function delete_subject(Request $request, Response $response, array $args)
+	{
+		$this->dao->delete_subject($args['id_subject']);
+		return $response->withStatus(204);
+	}
 }

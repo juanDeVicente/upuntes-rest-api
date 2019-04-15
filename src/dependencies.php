@@ -25,3 +25,10 @@ $container['db'] = function($c) {
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
     return new \Project\Utils\MySqlProjectDao($db);
 };
+
+//autenticacion
+$container['authentication'] = function ($c){
+	return new \Slim\Middleware\JwtAuthentication([
+		"secure" => false,
+	]);
+};

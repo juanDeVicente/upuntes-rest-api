@@ -38,8 +38,8 @@ class SubjectsDao
 	 */
 	public function create_subject(Subject $subject)
 	{
-		$sql = "INSERT INTO SUBJECT VALUES (?, ?, ?, ?)";
-		return $this->project_dao->insert($sql, $subject->as_array());
+		$sql = "INSERT INTO SUBJECT " . Subject::model_data() . " VALUES (?, ?, ?)";
+		return $this->project_dao->insert($sql, $subject->as_array()				);
 	}
 
 	/**
@@ -55,5 +55,11 @@ class SubjectsDao
 	{
 		$sql = "SELECT * FROM subject WHERE id_subject=?";
 		return $this->project_dao->fetch($sql, array($id_subject));
+	}
+
+	public function delete_subject($id_subject)
+	{
+		$sql = "DELETE FROM SUBJECT WHERE id_subject=?";
+		return $this->project_dao->execute($sql, array($id_subject));
 	}
 }

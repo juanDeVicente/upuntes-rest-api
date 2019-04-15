@@ -13,10 +13,10 @@ use Project\Utils\Model;
 
 class Subject implements Model
 {
-	private $id_subject;
-	private $id_career;
-	private $year;
-	private $name;
+	public $id_subject;
+	public $id_career;
+	public $year;
+	public $name;
 
 	public function __construct($id_subject, $id_career, $year, $name)
 	{
@@ -28,11 +28,11 @@ class Subject implements Model
 
 	public function as_array()
 	{
-		return array($this->id_subject, $this->id_career, $this->year, $this->name);
+		return array($this->id_career, $this->year, $this->name);
 	}
 
 	public static function model_data()
 	{
-		return array('id_subject', 'id_career', 'year', 'name');
+		return '(id_career, year, name)';
 	}
 }
