@@ -60,6 +60,14 @@ class SubjectsDao
 	public function delete_subject($id_subject)
 	{
 		$sql = "DELETE FROM SUBJECT WHERE id_subject=?";
-		return $this->project_dao->execute($sql, array($id_subject));
+		$this->project_dao->execute($sql, array($id_subject));
+	}
+
+	public function update_subject(Subject $subject)
+	{
+		$sql = "UPDATE SUBJECT SET name=?, year=? WHERE id_subject=?";
+		$this->project_dao->execute($sql, array($subject->name, $subject->year, $subject->id_subject));
+
+		return $this->get_subject($subject->id_subject);
 	}
 }

@@ -13,28 +13,26 @@ use Project\Utils\Model;
 
 class User implements Model
 {
-	private $id;
 	private $email;
 	private $password;
-	private $token;
 	private $admin;
+	private $enabled;
 
-	public function __construct($id, $email, $password, $token, $admin)
+	public function __construct($email, $password, $admin, $enabled)
 	{
-		$this->id = $id;
 		$this->email = $email;
 		$this->password = $password;
-		$this->token = $token;
 		$this->admin = $admin;
+		$this->enabled = $enabled;
 	}
 
 	public function as_array()
 	{
-		return array($this->id, $this->email, $this->password, $this->token, $this->admin);
+		return array($this->email, $this->password, $this->admin, $this->enabled);
 	}
 
 	public static function model_data()
 	{
-		return array('id', 'email', 'password', 'token', 'admin');
+		return '(email, password, admin, enabled)';
 	}
 }

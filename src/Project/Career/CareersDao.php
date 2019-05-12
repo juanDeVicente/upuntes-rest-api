@@ -28,7 +28,7 @@ class CareersDao
 
 	public function insert_career(Career $career)
 	{
-		$sql = "INSERT INTO career VALUES(?, ?, ?)";
+		$sql = "INSERT INTO career". Career::model_data() ." VALUES(?, ?)";
 		return $this->project_dao->insert($sql, $career->as_array());
 
 	}
@@ -36,5 +36,11 @@ class CareersDao
 	{
 		$sql = "SELECT * FROM career WHERE id_career=?";
 		return $this->project_dao->fetch($sql, array($id_career));
+	}
+
+	public function delete_career($id_career)
+	{
+		$sql = "DELETE FROM career WHERE id_career=?";
+		$this->project_dao->execute($sql, array($id_career));
 	}
 }

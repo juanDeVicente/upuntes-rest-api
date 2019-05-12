@@ -30,10 +30,10 @@ class Career implements Model
 
 	public function as_array()
 	{
-		return array($this->id_career, $this->img_path, $this->name);
+		return array($this->img_path, $this->name);
 	}
 	public static function model_data()
 	{
-		return array('id_career', 'img_path', 'name');
+		return '(img_path, name)';
 	}
 }

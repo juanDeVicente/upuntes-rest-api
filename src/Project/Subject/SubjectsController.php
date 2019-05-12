@@ -62,9 +62,15 @@ class SubjectsController
 		$post_args = $request->getParsedBody();
 		$subject = new Subject(null, $post_args['id_career'], $post_args['year'], $post_args['name']);
 
-		return $response->withJson($this->dao->create_subject($subject), 200);
+		return $response->withJson($this->dao->create_subject($subject), 201);
 	}
 
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response
+	 */
 	public function get_subject(Request $request, Response $response, array $args)
 	{
 		return $response->withJson($this->dao->get_subject($args['id_subject']), 200);
@@ -73,5 +79,12 @@ class SubjectsController
 	{
 		$this->dao->delete_subject($args['id_subject']);
 		return $response->withStatus(204);
+	}
+
+	public function update_subject(Request $request, Response $response, array $args)
+	{
+		$put_args = $request->getParsedBody();
+		$this->dao->update_subject(new Subject($put_args['id_subject'], $put_args['id_career'], $put_args['year'], $put_args['name']));
+		return $response->withStatus(201);
 	}
 }
