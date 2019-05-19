@@ -8,6 +8,7 @@
 
 namespace Project\Career;
 
+use Project\Utils\Files;
 use Psr\Container\ContainerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -33,7 +34,7 @@ class CareersController
 	public function insert_career(Request $request, Response $response, array $args)
 	{
 		$post_params = $request->getParsedBody();
-		$filename = $this->move_uploaded_file($this->career_images_path, $request->getUploadedFiles()['image']);
+		$filename = Files::move_uploaded_file($this->career_images_path, $request->getUploadedFiles()['image']);
 
 		$career = $this->dao->insert_career(new Career(
 			null,
@@ -55,24 +56,19 @@ class CareersController
 	public function delete_career(Request $request, Response $response, array $args)
 	{
 		$career = $this->dao->get_career($args['id_career']);
-		unlink($this->career_images_path . $career->img_path);
+		Files::remove_file($this->career_images_path . $career->img_path);
 
 		$this->dao->delete_career($career->id_career);
 		return $response->withStatus(204);
 	}
-	function delete_image($filename)
+	public function update_career(Request $request, Response $response, array $args)
 	{
-		unlink($this->career_images_path . $filename);
-	}
-	function move_uploaded_file($directory, UploadedFile $uploadedFile)
-	{
-		$extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
-		$basename = bin2hex(random_bytes(8));
-		$filename = sprintf('%s.%0.8s', $basename, $extension);
-
-		$uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
-
-		return $filename;
+		$put_args = $request->getParsedBody();
+		$career = $this->dao->get_career($args['id_career']);
+		$filename = Files::move_uploaded_file($this->career_images_path, $request->getUploadedFiles()['image']);
+		Files::remove_file($this->career_images_path . $career->img_path);
+		$this->dao->update_career(new Career($args['id_career'], $filename, $put_args['career_name']));
+		return $response->withStatus(201);
 	}
 
 	public function get_career(Request $request, Response $response, array $args)

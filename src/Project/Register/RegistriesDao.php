@@ -24,6 +24,11 @@ class RegistriesDao
 		$sql = "DELETE FROM registry WHERE id_registry=?";
 		$this->project_dao->execute($sql, $id_registry);
 	}
+	public function delete_registry($token)
+	{
+		$sql = "DELETE FROM registry WHERE token=?";
+		$this->project_dao->execute($sql, array($token));
+	}
 	public function get_registry_id($id_registry)
 	{
 		$sql = "SELECT * FROM registry WHERE id_registry=?";
@@ -43,5 +48,9 @@ class RegistriesDao
 	{
 		$sql = "UPDATE user SET enabled=1 WHERE id_user=?";
 		$this->project_dao->execute($sql, array($id_user));
+	}
+	public function finish_registry($token){
+		$sql = "UPDATE user, registry SET user.enabled=1 WHERE registry.token=? AND user.id_user=registry.id_user";
+		$this->project_dao->execute($sql, array($token));
 	}
 }

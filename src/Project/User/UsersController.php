@@ -48,7 +48,7 @@ class UsersController
 	{
 		$this->email_sender->setFrom('upuntes@gmail.com', 'Upuntes');
 		$this->email_sender->addAddress($email);
-		$this->email_sender->Body = 'Prueba :3 ' . $registry_token;
+		$this->email_sender->Body = 'Bienvenido a U-puntes!<br> Para finalizar tu registro utiliza el siguiente <a href="http://localhost:4200/registry/' . $registry_token . '">enlace</a>';
 		$this->email_sender->send();
 	}
 
@@ -97,7 +97,17 @@ class UsersController
 		}
 		return $response->withStatus(404);
 	}
-
+	function delete_user(Request $request, Response $response, array $args)
+	{
+		if ($request_user_id = $request->getAttribute('token')->id) {
+			$user = $this->users_dao->get_user_id($request_user_id);
+			if ($user->admin == 1) {
+				$this->users_dao->delete_user($args['id_user']);
+				return $response->withStatus(204);
+			}
+		}
+		return $response->withStatus(404);
+	}
 	function create_user(Request $request, Response $response, array $args)
 	{
 		$post_args = $request->getParsedBody();

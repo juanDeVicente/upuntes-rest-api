@@ -37,7 +37,7 @@ class ContentsDao
 	 */
 	public function get_all_contents_from_subject($id_subject)
 	{
-		$sql = "SELECT * FROM content WHERE id_subject=?";
+		$sql = "SELECT content.id_content, content.id_user_owner, content.content_filename, content.content_name, content.update_date, content.period, user.email FROM content JOIN user ON user.id_user=content.id_user_owner WHERE id_subject=?";
 		return $this->project_dao->fetch_all($sql, array($id_subject));
 	}
 
@@ -48,7 +48,22 @@ class ContentsDao
 	 */
 	public function get_all_contents_from_user($id_user_owner)
 	{
-		$sql = "SELECT * FROM content WHERE id_user_owner=?";
+		$sql = "SELECT content.id_content, content.id_user_owner, content.content_filename, content.content_name, subject.name AS subject_name, career.name AS career_name FROM content JOIN subject ON content.id_subject=subject.id_subject JOIN career ON career.id_career=subject.id_career WHERE content.id_user_owner=?";
 		return $this->project_dao->fetch_all($sql, array($id_user_owner));
+	}
+	public function insert_content(Content $content)
+	{
+		$sql = "INSERT INTO content". Content::model_data() ." VALUES(?, ?, ?, ?, ?, ?)";
+		return $this->project_dao->insert($sql, $content->as_array());
+	}
+	public function get_content($id_content)
+	{
+		$sql = "SELECT * from content WHERE id_content=?";
+		return $this->project_dao->fetch($sql, array($id_content));
+	}
+	public function delete_content($id_content)
+	{
+		$sql = "DELETE FROM content WHERE id_content=?";
+		$this->project_dao->execute($sql, array($id_content));
 	}
 }

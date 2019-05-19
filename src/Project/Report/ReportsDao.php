@@ -26,7 +26,11 @@ class ReportsDao
 	 */
 	public function get_all_reports()
 	{
-		$sql = "SELECT * FROM REPORT";
+		$sql = "SELECT content.id_content, content.content_name, report.id_report, report.is_bad_content, report.is_wrong_content, report.no_subject_content, career.name AS career_name, subject.name AS subject_name, content.content_filename 
+				FROM report 
+				JOIN content ON report.id_content_reported=content.id_content 
+				JOIN subject ON content.id_subject=subject.id_subject 
+				JOIN career ON career.id_career=subject.id_career";
 		return $this->project_dao->fetch_all($sql);
 	}
 
@@ -50,5 +54,10 @@ class ReportsDao
 	{
 		$sql = "INSERT INTO REPORT VALUES (?, ?, ?, ?, ?, ?, ?)";
 		return $this->project_dao->insert($sql, $report->as_array());
+	}
+	public function delete_report($id_report)
+	{
+		$sql = "DELETE FROM report WHERE id_report=?";
+		$this->project_dao->execute($sql, array($id_report));
 	}
 }

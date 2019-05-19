@@ -18,8 +18,8 @@ use Project\Utils\Model;
 class Career implements Model
 {
 	private $id_career;
-	private $img_path;
-	private $name;
+	public $img_path;
+	public $name;
 
 	public function __construct($id_career, $img_path, $name)
 	{
@@ -35,5 +35,10 @@ class Career implements Model
 	public static function model_data()
 	{
 		return '(img_path, name)';
+	}
+
+	public function get_id_career()
+	{
+		return $this->id_career;
 	}
 }

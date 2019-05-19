@@ -3,6 +3,7 @@
 
 namespace Project\Register;
 
+use Exception;
 use Psr\Container\ContainerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -36,16 +37,25 @@ class RegistriesController
 		return $response->withJson($registry, 200);
 	}
 
+
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param array $args
+	 * @return Response
+	 */
 	public function finish_registry(Request $request, Response $response, array $args)
 	{
-		$post_args = $request->getParsedBody();
-		$registry = $this->dao->get_registry_id($post_args['registry_id']);
-
-		if (!$registry)
-			return $response->withStatus(400);
-
-		$user = $this->dao->get_user_email($registry['email']);
-		$this->dao->registry_user($user->id);
+		try
+		{
+			$this->dao->finish_registry($args['token']);
+			$this->dao->delete_registry($args['token']);
+		}
+		catch (Exception $e)
+		{
+			$response->write($e->getMessage());
+			return $response->withStatus(404);
+		}
 
 		return $response->withStatus(201);
 

@@ -43,4 +43,9 @@ class CareersDao
 		$sql = "DELETE FROM career WHERE id_career=?";
 		$this->project_dao->execute($sql, array($id_career));
 	}
+	public function update_career(Career $career)
+	{
+		$sql = "UPDATE career SET name=?, img_path=? WHERE id_career=?";
+		$this->project_dao->execute($sql, array($career->name, $career->img_path, $career->get_id_career()));
+	}
 }

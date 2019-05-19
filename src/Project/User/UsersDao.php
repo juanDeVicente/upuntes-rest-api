@@ -43,4 +43,9 @@ class UsersDao
 		return $this->project_dao->execute($sql, array_push($params, $user_id));
 
 	}
+	function delete_user($user_id)
+	{
+		$sql = "UPDATE USER SET enabled=0 WHERE id_user=?";
+		return $this->project_dao->execute($sql, array($user_id));
+	}
 }
